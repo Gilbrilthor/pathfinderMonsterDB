@@ -63,5 +63,13 @@ namespace MonsterDBForm
             var parser = new MonsterReader(inFile);
             SaveDataAsDatabase(parser.Monsters, saveFilePath);
         }
+
+        public IEnumerable<string> RetrieveColumnNamesFromDatabase()
+        {
+            var result = ExecuteQuery("select column_name from information_schema.columns where table_name = 'monsters'");
+            var columnNames = (from row in result.AsEnumerable()
+                               select row.ItemArray.First()).Cast<string>();
+            return columnNames;
+        }
     }
 }

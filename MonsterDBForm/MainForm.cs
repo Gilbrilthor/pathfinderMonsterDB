@@ -53,6 +53,8 @@ namespace MonsterDBForm
                 queryTextBox.Text = "select * from monsters";
                 executeQuery("select * from monsters");
                 openBlockViewerToolStripMenuItem.Enabled = true;
+
+                backend.RetrieveColumnNamesFromDatabase();
             }
         }
 
