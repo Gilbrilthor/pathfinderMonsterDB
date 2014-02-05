@@ -61,7 +61,7 @@ namespace PathfinderDBParser
             return monsterList;
         }
 
-        public void CreateMonsterDatabase(IEnumerable<Monster> monsters)
+        public static void CreateMonsterDatabase(IEnumerable<Monster> monsters)
         {
             using (var db = new MonsterContext())
             {

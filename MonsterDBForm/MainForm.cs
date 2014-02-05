@@ -28,6 +28,7 @@ namespace MonsterDBForm
 
             viewer = new StatBlockViewer();
             helpForm = new HelpForm(ResourceReader.ReadHelpFile());
+            backend = new MonsterDBFormBackend();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -48,7 +49,7 @@ namespace MonsterDBForm
 
             if (openDialog.ShowDialog() != System.Windows.Forms.DialogResult.Cancel)
             {
-                AppDomain.CurrentDomain.SetData("DataDirectory", openDialog.FileName);
+                backend.SetDatabaseFilePath(openDialog.FileName);
                 queryTextBox.Text = "select * from monsters";
                 executeQuery("select * from monsters");
                 openBlockViewerToolStripMenuItem.Enabled = true;
@@ -65,31 +66,19 @@ namespace MonsterDBForm
             executeQuery(queryTextBox.Text);
         }
 
+        private MonsterDBFormBackend backend;
+
         private void executeQuery(string query)
         {
-            var connection = System.Configuration.ConfigurationManager.ConnectionStrings["MonsterContext"];
-
-            DataTable results = new DataTable();
-
-            using (var conn = new SqlCeConnection(connection.ConnectionString))
+            try
             {
-                using (var command = new SqlCeCommand(query, conn))
-                {
-                    using (var dataAdapter = new SqlCeDataAdapter(command))
-                    {
-                        try
-                        {
-                            dataAdapter.Fill(results);
-                        }
-                        catch (SqlCeException ex)
-                        {
-                            MessageBox.Show(ex.Message, "An SQL Error Occurred!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        }
-                    }
-                }
+                var results = backend.ExecuteQuery(query);
+                resultsGridView.DataSource = results;
             }
-
-            resultsGridView.DataSource = results;
+            catch (SqlCeException ex)
+            {
+                MessageBox.Show(ex.Message, "An SQL Error Occurred!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void saveDataAsDatabase(IEnumerable<Monster> monsterList, string location)
@@ -97,12 +86,13 @@ namespace MonsterDBForm
             var waitBox = new InfoBox();
             waitBox.ShowInfoBox("Please wait while the database is created...");
             Cursor = Cursors.WaitCursor;
-            AppDomain.CurrentDomain.SetData("DataDirectory", location);
 
-            parser.CreateMonsterDatabase(monsterList);
+            backend.SaveDataAsDatabase(monsterList, location);
+
             waitBox.Visible = false;
             waitBox.Dispose();
-            Cursor = Cursors.Arrow;
+            Cursor = Cursors.Default;
+            openBlockViewerToolStripMenuItem.Enabled = true;
         }
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
@@ -123,11 +113,10 @@ namespace MonsterDBForm
                 var text = row.Cells["FullText"].Value as string;
                 var name = row.Cells["Name"].Value as string;
 
-                //var pfCssText = File.ReadAllText("PF.css");
-
                 var pfCssText = ResourceReader.ReadPFCssFile();
 
                 viewer.setDocumentText(pfCssText + Environment.NewLine + text, name);
+                openBlockViewerToolStripMenuItem.Enabled = true;
             }
         }
 
@@ -135,6 +124,8 @@ namespace MonsterDBForm
         {
             // Pick both the file to open and the name to save the file as
             OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Comma Separated Values Files (*.csv)|*.csv";
+
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 var saveDialog = new SaveFileDialog();
@@ -146,6 +137,7 @@ namespace MonsterDBForm
 
                 if (saveDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
+                    backend.CreateDatabaseFromCSV(dialog.FileName, saveDialog.FileName);
                     parser = new MonsterReader(dialog.OpenFile());
                     saveDataAsDatabase(parser.Monsters, saveDialog.FileName);
                     setDataSource(parser.Monsters);
