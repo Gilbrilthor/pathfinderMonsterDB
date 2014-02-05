@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathfinderDBParser", "PathfinderDBParser\PathfinderDBParser.csproj", "{DF5A20DB-8F1C-4FBD-B298-0B7D7E997E59}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonsterDBForm", "MonsterDBForm\MonsterDBForm.csproj", "{91820CC4-0C71-4EDF-B308-7D1CA66A517B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathfinderDBParser", "PathfinderDBParser\PathfinderDBParser.csproj", "{DF5A20DB-8F1C-4FBD-B298-0B7D7E997E59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
