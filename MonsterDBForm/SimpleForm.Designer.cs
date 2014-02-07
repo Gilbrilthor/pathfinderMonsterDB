@@ -34,8 +34,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.where1Combo = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.equality1Combo = new System.Windows.Forms.ComboBox();
+            this.where1TextBox = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.resultsGridView)).BeginInit();
@@ -102,32 +102,32 @@
             this.where1Combo.Size = new System.Drawing.Size(121, 21);
             this.where1Combo.TabIndex = 4;
             // 
-            // comboBox2
+            // equality1Combo
             // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.equality1Combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.equality1Combo.FormattingEnabled = true;
+            this.equality1Combo.Items.AddRange(new object[] {
             "equals",
             "is like",
             "greater than",
             "less than"});
-            this.comboBox2.Location = new System.Drawing.Point(133, 19);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 5;
+            this.equality1Combo.Location = new System.Drawing.Point(133, 19);
+            this.equality1Combo.Name = "equality1Combo";
+            this.equality1Combo.Size = new System.Drawing.Size(121, 21);
+            this.equality1Combo.TabIndex = 5;
             // 
-            // textBox1
+            // where1TextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(260, 20);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(414, 20);
-            this.textBox1.TabIndex = 6;
+            this.where1TextBox.Location = new System.Drawing.Point(260, 20);
+            this.where1TextBox.Name = "where1TextBox";
+            this.where1TextBox.Size = new System.Drawing.Size(414, 20);
+            this.where1TextBox.TabIndex = 6;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.where1Combo);
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Controls.Add(this.comboBox2);
+            this.groupBox1.Controls.Add(this.where1TextBox);
+            this.groupBox1.Controls.Add(this.equality1Combo);
             this.groupBox1.Location = new System.Drawing.Point(12, 409);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(680, 157);
@@ -164,8 +164,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox where1Combo;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ComboBox equality1Combo;
+        private System.Windows.Forms.TextBox where1TextBox;
         private System.Windows.Forms.GroupBox groupBox1;
     }
 }

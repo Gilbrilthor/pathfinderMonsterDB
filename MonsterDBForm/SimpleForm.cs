@@ -59,9 +59,16 @@ namespace MonsterDBForm
 
             sb.Append(" From Monsters");
 
-            var results = backend.ExecuteQuery(sb.ToString());
+            try
+            {
+                var results = backend.ExecuteQuery(sb.ToString());
 
-            resultsGridView.DataSource = results;
+                resultsGridView.DataSource = results;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void selectListBox_SelectedIndexChanged(object sender, EventArgs e)
