@@ -85,6 +85,7 @@ namespace PathfinderDBParser
         }
 
         public EntityContext(string tableName)
+            : base("name=MonsterContext")
         {
             this.TableName = tableName;
         }

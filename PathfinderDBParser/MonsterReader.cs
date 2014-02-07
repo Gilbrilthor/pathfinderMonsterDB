@@ -30,11 +30,11 @@ namespace PathfinderDBParser
 
         public MonsterReader(string file)
             : base(file)
-        { }
+        { TableName = "Monsters"; }
 
         public MonsterReader(Stream reader)
             : base(reader)
-        { }
+        { TableName = "Monsters"; }
 
         public void CreateMonsterDatabase(IEnumerable<Monster> monsters)
         {
