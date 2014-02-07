@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace PathfinderDBParser
 {
-    public class MonsterReader
+    public class MonsterReader : Reader<Monster>
     {
         private List<Monster> monsters;
 
@@ -21,81 +21,26 @@ namespace PathfinderDBParser
             {
                 if (monsters == null)
                 {
-                    monsters = ReadAllMonsters();
+                    monsters = ReadAll();
                 }
                 return monsters;
             }
             private set { monsters = value; }
         }
 
-        public string File { get; set; }
-
-        private CsvReader csvReader;
-
         public MonsterReader(string file)
-        {
-            File = file;
-
-            csvReader = new CsvReader(new StreamReader(File));
-        }
+            : base(file)
+        { }
 
         public MonsterReader(Stream reader)
-        {
-            File = null;
-            csvReader = new CsvReader(new StreamReader(reader));
-        }
-
-        private List<Monster> ReadAllMonsters()
-        {
-            List<Monster> monsterList;
-            try
-            {
-                monsterList = csvReader.GetRecords<Monster>().ToList();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error Reading file:");
-                Console.WriteLine(ex);
-                monsterList = new List<Monster>();
-            }
-            return monsterList;
-        }
+            : base(reader)
+        { }
 
         public void CreateMonsterDatabase(IEnumerable<Monster> monsters)
         {
-            using (var db = new MonsterContext())
-            {
-                try
-                {
-                    db.Database.ExecuteSqlCommand("delete from Monsters");
-                    db.SaveChangesAsync();
-
-                    db.Monsters.AddRange(monsters);
-                    db.SaveChangesAsync();
-                }
-                catch (DbEntityValidationException ex)
-                {
-                    foreach (var validationErrors in ex.EntityValidationErrors)
-                    {
-                        foreach (var validationError in validationErrors.ValidationErrors)
-                        {
-                            Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
-                        }
-                    }
-
-                    throw;
-                }
-            }
-        }
-    }
-
-    public class MonsterContext : DbContext
-    {
-        public MonsterContext()
-            : base("MonsterContext")
-        {
+            CreateDatabase(monsters, TableName);
         }
 
-        public DbSet<Monster> Monsters { get; set; }
+        private string TableName { get; set; }
     }
 }

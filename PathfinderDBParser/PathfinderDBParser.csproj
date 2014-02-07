@@ -58,6 +58,8 @@
   <ItemGroup>
     <Compile Include="Monster.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reader.cs" />
+    <Compile Include="Spell.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MonsterReader.cs" />
