@@ -18,7 +18,8 @@ namespace MonsterDBForm
     // Icon for project found at : http://www.iconarchive.com/show/monsters-icons-by-tanitakawkaw/monster-icon.html
     public partial class MainForm : Form
     {
-        private MonsterReader parser;
+        private MonsterReader monsterParser;
+        private SpellReader spellParser;
 
         private StatBlockViewer viewer;
 
@@ -99,7 +100,7 @@ namespace MonsterDBForm
             Cursor = Cursors.WaitCursor;
             AppDomain.CurrentDomain.SetData("DataDirectory", location);
 
-            parser.CreateMonsterDatabase(monsterList);
+            monsterParser.CreateMonsterDatabase(monsterList);
             waitBox.Visible = false;
             waitBox.Dispose();
             Cursor = Cursors.Arrow;
@@ -146,9 +147,9 @@ namespace MonsterDBForm
 
                 if (saveDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    parser = new MonsterReader(dialog.OpenFile());
-                    saveDataAsDatabase(parser.Monsters, saveDialog.FileName);
-                    setDataSource(parser.Monsters);
+                    monsterParser = new MonsterReader(dialog.OpenFile());
+                    saveDataAsDatabase(monsterParser.Monsters, saveDialog.FileName);
+                    setDataSource(monsterParser.Monsters);
                 }
             }
         }

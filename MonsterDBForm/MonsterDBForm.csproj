@@ -93,6 +93,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseSelectorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DatabaseSelectorForm.Designer.cs">
+      <DependentUpon>DatabaseSelectorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="HelpForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,6 +136,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>_PathfinderDBParser_MonsterContextDataSet.xsd</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DatabaseSelectorForm.resx">
+      <DependentUpon>DatabaseSelectorForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HelpForm.resx">
       <DependentUpon>HelpForm.cs</DependentUpon>
     </EmbeddedResource>

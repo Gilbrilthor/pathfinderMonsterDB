@@ -60,6 +60,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reader.cs" />
     <Compile Include="Spell.cs" />
+    <Compile Include="SpellReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MonsterReader.cs" />
