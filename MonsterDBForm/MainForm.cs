@@ -118,13 +118,21 @@ namespace MonsterDBForm
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            if (resultsGridView.Columns.Contains("FullText") && resultsGridView.SelectedRows.Count > 0)
+            var fullTextIndex = -1;
+
+            for (int i = 0; i < resultsGridView.Columns.Count; i++)
+            {
+                var name = resultsGridView.Columns[i].Name.ToLower();
+                if (name.Contains("full") && name.Contains("text"))
+                {
+                    fullTextIndex = i;
+                }
+            }
+            if (fullTextIndex > -1 && resultsGridView.SelectedRows.Count > 0)
             {
                 var row = resultsGridView.SelectedRows[0];
-                var text = row.Cells["FullText"].Value as string;
+                var text = row.Cells[fullTextIndex].Value as string;
                 var name = row.Cells["Name"].Value as string;
-
-                //var pfCssText = File.ReadAllText("PF.css");
 
                 var pfCssText = ResourceReader.ReadPFCssFile();
 
@@ -134,24 +142,26 @@ namespace MonsterDBForm
 
         private void createDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Pick both the file to open and the name to save the file as
-            OpenFileDialog dialog = new OpenFileDialog();
-            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                var saveDialog = new SaveFileDialog();
+            //// Pick both the file to open and the name to save the file as
+            //OpenFileDialog dialog = new OpenFileDialog();
+            //if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            //{
+            //    var saveDialog = new SaveFileDialog();
 
-                saveDialog.Filter = "SqlCompact Files (*.sdf)|*.sdf";
-                saveDialog.OverwritePrompt = true;
+            //    saveDialog.Filter = "SqlCompact Files (*.sdf)|*.sdf";
+            //    saveDialog.OverwritePrompt = true;
 
-                saveDialog.DefaultExt = ".sdf";
+            //    saveDialog.DefaultExt = ".sdf";
 
-                if (saveDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    monsterParser = new MonsterReader(dialog.OpenFile());
-                    saveDataAsDatabase(monsterParser.Monsters, saveDialog.FileName);
-                    setDataSource(monsterParser.Monsters);
-                }
-            }
+            //    if (saveDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            //    {
+            //        monsterParser = new MonsterReader(dialog.OpenFile());
+            //        saveDataAsDatabase(monsterParser.Monsters, saveDialog.FileName);
+            //        setDataSource(monsterParser.Monsters);
+            //    }
+            //}
+
+            new DatabaseSelectorForm().ShowDialog();
         }
 
         private void openBlockViewerToolStripMenuItem_Click(object sender, EventArgs e)
