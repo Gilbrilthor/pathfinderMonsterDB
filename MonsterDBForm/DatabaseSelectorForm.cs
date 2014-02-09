@@ -24,33 +24,46 @@ namespace MonsterDBForm
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string mFile = null, sFile = null;
-
             Reader<Monster> mReader = null;
             Reader<Spell> sReader = null;
+            Reader<Feat> fReader = null;
 
             // See where they want to pull the data from
             if (monsterCheckBox.Checked)
             {
-                mFile = getCSVFile("Where is the Monster CSV file?");
+                var mFile = getCSVFile("Where is the Monster CSV file?");
                 if (mFile != null)
                 {
                     mReader = new Reader<Monster>(mFile);
                 }
             }
+
             if (spellCheckBox.Checked)
             {
-                sFile = getCSVFile("Where is the Spell CSV file?");
+                var sFile = getCSVFile("Where is the Spell CSV file?");
                 if (sFile != null)
                 {
                     sReader = new Reader<Spell>(sFile);
                 }
             }
 
+            if (spellCheckBox.Checked)
+            {
+                var fFile = getCSVFile("Where is the Feat CSV file?");
+                if (fFile != null)
+                {
+                    fReader = new Reader<Feat>(fFile);
+                }
+            }
+
             // If there is any data they want to use, create the database
-            if (mReader != null || sReader != null)
+            if (mReader != null || sReader != null || fReader != null)
             {
                 var saveLoc = getDBSaveLocation("Where do you want to save the database at?");
+
+                var waitBox = new InfoBox();
+                waitBox.ShowInfoBox("Please wait while the database is created...");
+                Cursor = Cursors.WaitCursor;
 
                 AppDomain.CurrentDomain.SetData("DataDirectory", saveLoc);
 
@@ -59,6 +72,13 @@ namespace MonsterDBForm
 
                 if (sReader != null)
                     sReader.CreateDatabase(sReader.Items);
+
+                if (fReader != null)
+                    fReader.CreateDatabase(fReader.Items);
+
+                waitBox.Visible = false;
+                waitBox.Dispose();
+                Cursor = Cursors.Arrow;
             }
             else
             {

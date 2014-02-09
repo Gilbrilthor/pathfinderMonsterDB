@@ -26,6 +26,7 @@ namespace PathfinderDBParser
 
             dTableName.Add(typeof(Monster), "Monsters");
             dTableName.Add(typeof(Spell), "Spells");
+            dTableName.Add(typeof(Feat), "Feats");
 
             return dTableName;
         }

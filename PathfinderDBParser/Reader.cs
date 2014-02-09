@@ -35,8 +35,6 @@ namespace PathfinderDBParser
 
         private List<T> items;
 
-        private Stream reader;
-
         public Reader(string file)
         {
             File = file;
