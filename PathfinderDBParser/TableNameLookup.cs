@@ -28,6 +28,7 @@ namespace PathfinderDBParser
             dTableName.Add(typeof(Spell), "Spells");
             dTableName.Add(typeof(Feat), "Feats");
             dTableName.Add(typeof(MagicItem), "MagicItems");
+            dTableName.Add(typeof(NPC), "NPCs");
 
             return dTableName;
         }

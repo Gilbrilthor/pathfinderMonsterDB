@@ -33,6 +33,7 @@
             this.spellCheckBox = new System.Windows.Forms.CheckBox();
             this.featCheckBox = new System.Windows.Forms.CheckBox();
             this.magicItemsCheckBox = new System.Windows.Forms.CheckBox();
+            this.npcCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // button1
@@ -85,11 +86,22 @@
             this.magicItemsCheckBox.Text = "Magic Items";
             this.magicItemsCheckBox.UseVisualStyleBackColor = true;
             // 
+            // npcCheckBox
+            // 
+            this.npcCheckBox.AutoSize = true;
+            this.npcCheckBox.Location = new System.Drawing.Point(12, 107);
+            this.npcCheckBox.Name = "npcCheckBox";
+            this.npcCheckBox.Size = new System.Drawing.Size(53, 17);
+            this.npcCheckBox.TabIndex = 7;
+            this.npcCheckBox.Text = "NPCs";
+            this.npcCheckBox.UseVisualStyleBackColor = true;
+            // 
             // DatabaseSelectorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.npcCheckBox);
             this.Controls.Add(this.magicItemsCheckBox);
             this.Controls.Add(this.featCheckBox);
             this.Controls.Add(this.spellCheckBox);
@@ -110,6 +122,7 @@
         private System.Windows.Forms.CheckBox spellCheckBox;
         private System.Windows.Forms.CheckBox featCheckBox;
         private System.Windows.Forms.CheckBox magicItemsCheckBox;
+        private System.Windows.Forms.CheckBox npcCheckBox;
 
     }
 }

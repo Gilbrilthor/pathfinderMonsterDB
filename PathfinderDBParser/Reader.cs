@@ -98,16 +98,7 @@ namespace PathfinderDBParser
         protected List<T> ReadAll()
         {
             List<T> rowList;
-            try
-            {
-                rowList = csvReader.GetRecords<T>().ToList();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error Reading file:");
-                Console.WriteLine(ex);
-                rowList = new List<T>();
-            }
+            rowList = csvReader.GetRecords<T>().ToList();
             return rowList;
         }
     }
