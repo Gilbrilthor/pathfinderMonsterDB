@@ -18,9 +18,6 @@ namespace MonsterDBForm
     // Icon for project found at : http://www.iconarchive.com/show/monsters-icons-by-tanitakawkaw/monster-icon.html
     public partial class MainForm : Form
     {
-        private MonsterReader monsterParser;
-        private SpellReader spellParser;
-
         private StatBlockViewer viewer;
 
         public MainForm()
@@ -100,7 +97,6 @@ namespace MonsterDBForm
             Cursor = Cursors.WaitCursor;
             AppDomain.CurrentDomain.SetData("DataDirectory", location);
 
-            monsterParser.CreateMonsterDatabase(monsterList);
             waitBox.Visible = false;
             waitBox.Dispose();
             Cursor = Cursors.Arrow;

@@ -26,8 +26,8 @@ namespace MonsterDBForm
         {
             string mFile = null, sFile = null;
 
-            MonsterReader mReader = null;
-            SpellReader sReader = null;
+            Reader<Monster> mReader = null;
+            Reader<Spell> sReader = null;
 
             // See where they want to pull the data from
             if (monsterCheckBox.Checked)
@@ -35,7 +35,7 @@ namespace MonsterDBForm
                 mFile = getCSVFile("Where is the Monster CSV file?");
                 if (mFile != null)
                 {
-                    mReader = new MonsterReader(mFile);
+                    mReader = new Reader<Monster>(mFile);
                 }
             }
             if (spellCheckBox.Checked)
@@ -43,7 +43,7 @@ namespace MonsterDBForm
                 sFile = getCSVFile("Where is the Spell CSV file?");
                 if (sFile != null)
                 {
-                    sReader = new SpellReader(sFile);
+                    sReader = new Reader<Spell>(sFile);
                 }
             }
 
@@ -54,11 +54,11 @@ namespace MonsterDBForm
 
                 AppDomain.CurrentDomain.SetData("DataDirectory", saveLoc);
 
-                if(mReader != null)
-                    mReader.CreateMonsterDatabase(mReader.Monsters);
+                if (mReader != null)
+                    mReader.CreateDatabase(mReader.Items);
 
-                if(sReader != null)
-                    sReader.CreateSpellDatabase(sReader.Spells);
+                if (sReader != null)
+                    sReader.CreateDatabase(sReader.Items);
             }
             else
             {

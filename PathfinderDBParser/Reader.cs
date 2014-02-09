@@ -11,36 +11,72 @@ using System.Threading.Tasks;
 
 namespace PathfinderDBParser
 {
-    public abstract class Reader<T> where T : class
+    public class EntityContext<T> : DbContext where T : class
     {
-        public string File { get; set; }
-
-        protected CsvReader csvReader;
-        private Stream reader;
-
-        protected List<T> ReadAll()
+        public EntityContext()
+            : base("name=MonsterContext")
         {
-            List<T> rowList;
-            try
-            {
-                rowList = csvReader.GetRecords<T>().ToList();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error Reading file:");
-                Console.WriteLine(ex);
-                rowList = new List<T>();
-            }
-            return rowList;
         }
 
-        protected void CreateDatabase(IEnumerable<T> entities, string tableName)
+        public EntityContext(string tableName)
+            : base("name=MonsterContext")
         {
-            using (var db = new EntityContext<T>(tableName))
+            this.TableName = tableName;
+        }
+
+        public DbSet<T> Entities { get; set; }
+
+        public string TableName { get; set; }
+    }
+
+    public class Reader<T> where T : class
+    {
+        protected CsvReader csvReader;
+
+        private List<T> items;
+
+        private Stream reader;
+
+        public Reader(string file)
+        {
+            File = file;
+
+            TableName = TableNameLookup.GetTableName<T>();
+
+            csvReader = new CsvReader(new StreamReader(File));
+        }
+
+        public Reader(Stream reader)
+        {
+            File = null;
+            TableName = TableNameLookup.GetTableName<T>();
+            csvReader = new CsvReader(new StreamReader(reader));
+        }
+
+        public string File { get; set; }
+
+        public List<T> Items
+        {
+            get
+            {
+                if (items == null)
+                {
+                    items = ReadAll();
+                }
+                return items;
+            }
+            private set { items = value; }
+        }
+
+        public string TableName { get; set; }
+
+        public void CreateDatabase(IEnumerable<T> entities)
+        {
+            using (var db = new EntityContext<T>(TableName))
             {
                 try
                 {
-                    db.Database.ExecuteSqlCommand("delete from " + db.TableName);
+                    db.Database.ExecuteSqlCommand("delete from " + TableName);
                     db.SaveChangesAsync();
 
                     db.Entities.AddRange(entities);
@@ -61,35 +97,20 @@ namespace PathfinderDBParser
             }
         }
 
-        public Reader(string file)
+        protected List<T> ReadAll()
         {
-            File = file;
-
-            csvReader = new CsvReader(new StreamReader(File));
+            List<T> rowList;
+            try
+            {
+                rowList = csvReader.GetRecords<T>().ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error Reading file:");
+                Console.WriteLine(ex);
+                rowList = new List<T>();
+            }
+            return rowList;
         }
-
-        public Reader(Stream reader)
-        {
-            File = null;
-            csvReader = new CsvReader(new StreamReader(reader));
-        }
-    }
-
-    public class EntityContext<T> : DbContext where T : class
-    {
-        public string TableName { get; set; }
-
-        public EntityContext()
-            : base("name=MonsterContext")
-        {
-        }
-
-        public EntityContext(string tableName)
-            : base("name=MonsterContext")
-        {
-            this.TableName = tableName;
-        }
-
-        public DbSet<T> Entities { get; set; }
     }
 }
