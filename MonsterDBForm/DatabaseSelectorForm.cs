@@ -27,6 +27,7 @@ namespace MonsterDBForm
             Reader<Monster> mReader = null;
             Reader<Spell> sReader = null;
             Reader<Feat> fReader = null;
+            Reader<MagicItem> miReader = null;
 
             // See where they want to pull the data from
             if (monsterCheckBox.Checked)
@@ -56,8 +57,17 @@ namespace MonsterDBForm
                 }
             }
 
+            if (magicItemsCheckBox.Checked)
+            {
+                var miFile = getCSVFile("Where is the Magic Item CSV file?");
+                if (miFile != null)
+                {
+                    miReader = new Reader<MagicItem>(miFile);
+                }
+            }
+
             // If there is any data they want to use, create the database
-            if (mReader != null || sReader != null || fReader != null)
+            if (mReader != null || sReader != null || fReader != null || miReader != null)
             {
                 var saveLoc = getDBSaveLocation("Where do you want to save the database at?");
 
@@ -75,6 +85,9 @@ namespace MonsterDBForm
 
                 if (fReader != null)
                     fReader.CreateDatabase(fReader.Items);
+
+                if (miReader != null)
+                    miReader.CreateDatabase(miReader.Items);
 
                 waitBox.Visible = false;
                 waitBox.Dispose();

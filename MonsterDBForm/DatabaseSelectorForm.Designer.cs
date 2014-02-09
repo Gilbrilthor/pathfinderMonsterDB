@@ -32,6 +32,7 @@
             this.monsterCheckBox = new System.Windows.Forms.CheckBox();
             this.spellCheckBox = new System.Windows.Forms.CheckBox();
             this.featCheckBox = new System.Windows.Forms.CheckBox();
+            this.magicItemsCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // button1
@@ -74,11 +75,22 @@
             this.featCheckBox.Text = "Feats";
             this.featCheckBox.UseVisualStyleBackColor = true;
             // 
+            // magicItemsCheckBox
+            // 
+            this.magicItemsCheckBox.AutoSize = true;
+            this.magicItemsCheckBox.Location = new System.Drawing.Point(12, 84);
+            this.magicItemsCheckBox.Name = "magicItemsCheckBox";
+            this.magicItemsCheckBox.Size = new System.Drawing.Size(83, 17);
+            this.magicItemsCheckBox.TabIndex = 6;
+            this.magicItemsCheckBox.Text = "Magic Items";
+            this.magicItemsCheckBox.UseVisualStyleBackColor = true;
+            // 
             // DatabaseSelectorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.magicItemsCheckBox);
             this.Controls.Add(this.featCheckBox);
             this.Controls.Add(this.spellCheckBox);
             this.Controls.Add(this.monsterCheckBox);
@@ -97,6 +109,7 @@
         private System.Windows.Forms.CheckBox monsterCheckBox;
         private System.Windows.Forms.CheckBox spellCheckBox;
         private System.Windows.Forms.CheckBox featCheckBox;
+        private System.Windows.Forms.CheckBox magicItemsCheckBox;
 
     }
 }
