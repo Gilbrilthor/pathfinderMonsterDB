@@ -173,5 +173,23 @@ namespace MonsterDBForm
             helpForm.Show();
             helpForm.Focus();
         }
+
+        private void exportToCSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var saveFileDialog = new SaveFileDialog();
+
+            saveFileDialog.Filter = "Comma Separated Values File (*.csv)|*.csv";
+
+            if (saveFileDialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            {
+                return;
+            }
+
+            var delimiter = ",";
+
+            resultsGridView.ExportToCSV(saveFileDialog.FileName, delimiter);
+
+            MessageBox.Show(String.Format("The File has been saved as {0}. The delimiter it used was {1}.", saveFileDialog.FileName, delimiter));
+        }
     }
 }

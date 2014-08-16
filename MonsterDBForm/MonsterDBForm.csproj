@@ -99,6 +99,7 @@
     <Compile Include="DatabaseSelectorForm.Designer.cs">
       <DependentUpon>DatabaseSelectorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers.cs" />
     <Compile Include="HelpForm.cs">
       <SubType>Form</SubType>
     </Compile>

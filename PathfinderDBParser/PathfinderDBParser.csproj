@@ -64,7 +64,6 @@
     <Compile Include="Reader.cs" />
     <Compile Include="Spell.cs" />
     <Compile Include="TableNameLookup.cs" />
-    <Compile Include="Trait.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

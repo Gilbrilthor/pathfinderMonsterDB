@@ -42,6 +42,7 @@
             this.queryButton = new System.Windows.Forms.Button();
             this.monstersTableAdapter = new MonsterDBForm._PathfinderDBParser_MonsterContextDataSetTableAdapters.MonstersTableAdapter();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.exportToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.resultsGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.monstersBindingSource)).BeginInit();
@@ -55,6 +56,7 @@
             this.openToolStripMenuItem,
             this.importToolStripMenuItem,
             this.openBlockViewerToolStripMenuItem,
+            this.exportToCSVToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -158,6 +160,13 @@
             this.panel1.Size = new System.Drawing.Size(976, 349);
             this.panel1.TabIndex = 4;
             // 
+            // exportToCSVToolStripMenuItem
+            // 
+            this.exportToCSVToolStripMenuItem.Name = "exportToCSVToolStripMenuItem";
+            this.exportToCSVToolStripMenuItem.Size = new System.Drawing.Size(102, 20);
+            this.exportToCSVToolStripMenuItem.Text = "Export To CSV...";
+            this.exportToCSVToolStripMenuItem.Click += new System.EventHandler(this.exportToCSVToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -170,7 +179,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = "Pathfinder Monster Database";
+            this.Text = "Pathfinder Database";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -197,6 +206,7 @@
         private System.Windows.Forms.ToolStripMenuItem openBlockViewerToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportToCSVToolStripMenuItem;
     }
 }
 
